@@ -118,20 +118,19 @@ let webpackConfig = {
 
 module.exports = merge(webpackConfig, {
   plugins: [
-    // {
-    //   name: 'vux-ui'
-    // },
-    // {
-    //   name: 'less-theme',
-    //   path: 'src/assets/theme.less'
-    // },
-
+    {
+      name: 'vux-ui'
+    },
+    {
+      name: 'less-theme',
+      path: 'src/assets/theme.less'
+    },
     //webpack manifest文件inline
-    // {
-    //   name: 'inline-manifest'
-    // },
-    // {
-    //   name: 'duplicate-style'
-    // }
+    {
+      name: 'inline-manifest'
+    },
+    {
+      name: 'duplicate-style'
+    }
   ]
 });

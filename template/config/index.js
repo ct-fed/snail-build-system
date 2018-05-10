@@ -5,7 +5,7 @@ const defaultConfig = {
   index: path.resolve(__dirname, '../dist', process.env.NODE_ENV, 'index.html'),
   // index: path.resolve(__dirname, '../dist', 'index.html'),
   assetsRoot: path.resolve(__dirname, '../dist'),
-  assetsSubDirectory: 'assets',
+  assetsSubDirectory: '',
   productionSourceMap: true,
   productionGzip: false,
   productionGzipExtensions: ['js', 'css'],

@@ -22,27 +22,28 @@ const htmlTemplate = (function() {
 
       entryHtml.forEach(filePath => {
         const filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'));
-        const conf = {
-          // 模板来源
-          template: filePath,
-          // 文件名称,
-          filename: path.resolve(__dirname, '../dist', i, filename + '.html'),
-          // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
-          chunks: ['manifest', 'vendor', filename],
-          inject: true,
-          env: i,
-          domains: JSON.stringify(__domain[i]),
-          minify: {
-            removeComments: true,
-            minifyJS: true,
-            collapseWhitespace: true,
-            removeAttributeQuotes: true
-          },
-          chunksSortMode: 'dependency'
-        };
+      const conf = {
+        // 模板来源
+        template: filePath,
+        // 文件名称,
+        filename: path.resolve(__dirname, '../dist', i, filename + '.html'),
+        // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+        chunks: ['manifest', 'vendor', filename],
+        inject: true,
+        env: i,
+        domains: JSON.stringify(__domain[i]),
+        minify: {
+          removeComments: true,
+          minifyJS: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true
+        },
+        chunksSortMode: 'dependency'
+      };
 
-        arr.push(new HtmlWebpackPlugin(conf));
-      });
+      arr.push(new HtmlWebpackPlugin(conf));
+    })
+      ;
     }
   }
   return arr;
@@ -104,10 +105,16 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
     new FileManagerPlugin({
       onEnd: {
+        copy: [{source: './dist/images', destination: './dist/assets/images/'}, {
+          source: './dist/js',
+          destination: './dist/assets/js/'
+        }, {source: './dist/css', destination: './dist/assets/css/'}],
         delete: [
-          './dist/assets/headers.js'
-        ],
-        move: [{source: './dist/images', destination: './dist/assets/images'}]
+          './dist/assets/headers.js',
+          './dist/images',
+          './dist/js',
+          './dist/css'
+        ]
       }
     })
   ].concat(htmlTemplate)
